@@ -3,4 +3,4 @@ sudo: false
 node_js:
   - "stable"
 script:
-  -cd movie && yarn install && yarn test
+  - cd movie && yarn install && yarn test
