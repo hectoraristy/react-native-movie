@@ -6,36 +6,47 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
+  FlatList,
+  Image
 } from 'react-native';
 
 import {styles} from './styles';
 import {screenName} from './constants';
+import {movieApi} from '../../api';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import TouchableImage from '../../components/touchable-image';
+
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    };
+  }
+
+  componentDidMount() {
+    movieApi('getPopular').then((response) => this.setState({ data: response.results}))
+  }
+
+  renderItem({item}) {
+    return (
+      <TouchableImage
+        onPress={() => console.warn('on press')}
+        image={item.poster_path}
+      />
+    )
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <FlatList
+        horizontal={false}
+        contentContainerStyle={styles.flatlist}
+        keyExtractor={ item => `${item.id}`}
+        data={this.state.data}
+        renderItem={this.renderItem}
+      />
     );
   }
 }
