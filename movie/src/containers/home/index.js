@@ -4,20 +4,20 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   FlatList,
   Image
 } from 'react-native';
 
 import {styles} from './styles';
-import {screenName} from './constants';
+import {screenName, LIMIT_PAGE} from './constants';
 import {movieApi} from '../../api';
 
 import TouchableImage from '../../components/touchable-image';
 
 
-class Home extends Component {
+class Home extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -35,7 +35,7 @@ class Home extends Component {
   onEndReached() {
     this.page += 1;
     movieApi('getPopular', undefined , this.page).then((response) => {
-      if (response.total_pages >= this.page) {
+      if (LIMIT_PAGE >= this.page) {
         this.setState({ 
           data: this.state.data.concat(response.results)
         });

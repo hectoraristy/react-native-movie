@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Image,
@@ -14,7 +14,7 @@ import {
 import Resources from '../../resources';
 import {styles} from './styles';
 
-class TouchableStart extends Component {
+class TouchableStart extends PureComponent {
   constructor(props) {
     super(props);
     this.onPress = this.onPress.bind(this);
