@@ -4,38 +4,63 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
+  FlatList,
+  Image
 } from 'react-native';
 
-import {styles} from './styles';
-import {screenName} from './constants';
+import {screenName, LIMIT_PAGE} from './constants';
+import {movieApi} from '../../api';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import TouchableImage from '../../components/touchable-image';
 
-class Home extends Component {
+
+class Home extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: []
+    };
+    this.page = 1;
+    this.onEndReached = this.onEndReached.bind(this);
+  }
+
+  componentDidMount() {
+    movieApi('getPopular', undefined , this.page).then((response) => this.setState({ data: response.results}))
+  }
+
+  onEndReached() {
+    this.page += 1;
+    movieApi('getPopular', undefined , this.page).then((response) => {
+      if (LIMIT_PAGE >= this.page) {
+        this.setState({ 
+          data: this.state.data.concat(response.results)
+        });
+      }
+    });
+  }
+
+  renderItem({item}) {
+    return (
+      <TouchableImage
+        onPress={() => console.warn('on press')}
+        image={item.poster_path}
+      />
+    )
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <FlatList
+        horizontal={false}
+        numColumns={2}
+        onEndReached={this.onEndReached}
+        keyExtractor={ item => `${item.id}`}
+        data={this.state.data}
+        renderItem={this.renderItem}
+      />
     );
   }
 }
