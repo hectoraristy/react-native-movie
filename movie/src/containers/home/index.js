@@ -10,7 +10,6 @@ import {
   Image
 } from 'react-native';
 
-import {styles} from './styles';
 import {screenName, LIMIT_PAGE} from './constants';
 import {movieApi} from '../../api';
 
@@ -56,8 +55,8 @@ class Home extends PureComponent {
     return (
       <FlatList
         horizontal={false}
+        numColumns={2}
         onEndReached={this.onEndReached}
-        contentContainerStyle={styles.flatlist}
         keyExtractor={ item => `${item.id}`}
         data={this.state.data}
         renderItem={this.renderItem}
