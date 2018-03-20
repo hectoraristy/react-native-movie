@@ -20,13 +20,27 @@ import TouchableImage from '../../components/touchable-image';
 class Home extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       data: []
     };
+    this.page = 1;
+    this.onEndReached = this.onEndReached.bind(this);
   }
 
   componentDidMount() {
-    movieApi('getPopular').then((response) => this.setState({ data: response.results}))
+    movieApi('getPopular', undefined , this.page).then((response) => this.setState({ data: response.results}))
+  }
+
+  onEndReached() {
+    this.page += 1;
+    movieApi('getPopular', undefined , this.page).then((response) => {
+      if (response.total_pages >= this.page) {
+        this.setState({ 
+          data: this.state.data.concat(response.results)
+        });
+      }
+    });
   }
 
   renderItem({item}) {
@@ -42,6 +56,7 @@ class Home extends Component {
     return (
       <FlatList
         horizontal={false}
+        onEndReached={this.onEndReached}
         contentContainerStyle={styles.flatlist}
         keyExtractor={ item => `${item.id}`}
         data={this.state.data}
