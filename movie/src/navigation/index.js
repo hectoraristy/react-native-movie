@@ -1,11 +1,16 @@
+
+// External
 import { Navigation } from 'react-native-navigation';
-
 import { registerScreens } from './register-screens';
+import {Provider} from 'react-redux';
+import {store} from '../store';
 
+
+// Internal
 import Containers from '../containers';
 import Resources from '../resources';
 
-registerScreens(); // this is where you register all of your app's screens
+registerScreens(store, Provider); // this is where you register all of your app's screens
 
 // start the app
 Navigation.startSingleScreenApp({

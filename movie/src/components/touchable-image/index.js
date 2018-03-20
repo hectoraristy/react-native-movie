@@ -27,7 +27,10 @@ const TouchableImage = (props) => {
         style={styles.image}
         source={{uri: getImageUrl(props.image)}}
       >
-        <TouchableStar style={styles.star}/>        
+        <TouchableStar
+          style={styles.star}
+          onPress={props.onFavoritePress}
+        />
       </ImageBackground>
     </TouchableOpacity>
   );
