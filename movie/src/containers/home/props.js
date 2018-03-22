@@ -1,10 +1,14 @@
 import {
   addFavorite,
-  removeFavorite
+  removeFavorite,
+  setMovies,
+  loadmoreMovies
 } from '../../store/movies/actions';
 
 export const mapStateToProps = (state) => {
   return {
+    favorites: state.movies.favorites,
+    movies: state.movies.data
   };
 }
 
@@ -15,6 +19,12 @@ export const mapDispatchToProps = (dispatch) => {
     },
     removeFavorite: (item) => {
       dispatch(removeFavorite(item));
+    },
+    setMovies: (item) => {
+      dispatch(setMovies(item));
+    },
+    loadmoreMovies: (item) => {
+      dispatch(loadmoreMovies(item));
     }
   };
 }

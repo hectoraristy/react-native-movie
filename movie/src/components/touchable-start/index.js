@@ -19,7 +19,7 @@ class TouchableStart extends PureComponent {
     super(props);
     this.onPress = this.onPress.bind(this);
     this.state = {
-      isFavorite: false
+      isFavorite: this.props.isFavorite
     };
   }
 
