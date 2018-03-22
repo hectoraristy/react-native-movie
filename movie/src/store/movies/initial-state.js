@@ -1,3 +1,4 @@
 export default {
-  favorites: []
+  favorites: [],
+  data: []
 }

@@ -29,6 +29,7 @@ const TouchableImage = (props) => {
       >
         <TouchableStar
           style={styles.star}
+          isFavorite={props.isFavorite}
           onPress={props.onFavoritePress}
         />
       </ImageBackground>

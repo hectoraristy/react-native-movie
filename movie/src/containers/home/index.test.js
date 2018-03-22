@@ -6,7 +6,12 @@ import Home from './index';
 import configureStore from 'redux-mock-store'
  
 // create any initial state needed
-const initialState = {}; 
+const initialState = {
+  movies: {
+    favorites: [],
+    data: []
+  }
+};
 // here it is possible to pass in any middleware if needed into //configureStore
 const mockStore = configureStore();
 let wrapper;

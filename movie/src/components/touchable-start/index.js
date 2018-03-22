@@ -17,21 +17,14 @@ import {styles} from './styles';
 class TouchableStart extends PureComponent {
   constructor(props) {
     super(props);
-    this.onPress = this.onPress.bind(this);
-    this.state = {
-      isFavorite: false
-    };
   }
 
-  onPress() {
-    this.props.onPress(!this.state.isFavorite);
-    this.setState({
-      isFavorite: !this.state.isFavorite
-    });
+  onPress = () => {
+    this.props.onPress(!this.props.isFavorite);
   }
 
   render() {
-    const image = this.state.isFavorite ? Resources.start : Resources.emptyStart;
+    const image = this.props.isFavorite ? Resources.start : Resources.emptyStart;
     return (
       <TouchableOpacity
         style={this.props.style}
