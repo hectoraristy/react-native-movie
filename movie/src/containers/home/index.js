@@ -9,9 +9,11 @@ import {
   FlatList,
   Image
 } from 'react-native';
+import {connect} from 'react-redux';
 
 import {screenName, LIMIT_PAGE} from './constants';
 import {movieApi} from '../../api';
+import {mapStateToProps, mapDispatchToProps}  from './props';
 
 import TouchableImage from '../../components/touchable-image';
 
@@ -24,7 +26,9 @@ class Home extends PureComponent {
       data: []
     };
     this.page = 1;
+    this.renderItem = this.renderItem.bind(this);
     this.onEndReached = this.onEndReached.bind(this);
+    this.onFavoritePress = this.onFavoritePress.bind(this);
   }
 
   componentDidMount() {
@@ -42,9 +46,17 @@ class Home extends PureComponent {
     });
   }
 
+  onFavoritePress(state, item) {
+    if (state) {
+      return this.props.addFavorite(item);
+    }
+    return this.props.removeFavorite(item);
+  }
+
   renderItem({item}) {
     return (
       <TouchableImage
+        onFavoritePress={(state) => this.onFavoritePress(state, item)}
         onPress={() => console.warn('on press')}
         image={item.poster_path}
       />
@@ -66,7 +78,7 @@ class Home extends PureComponent {
 }
 
 export default {
-  screen: Home,
+  screen: connect(mapStateToProps, mapDispatchToProps)(Home),
   screenName
 }
 

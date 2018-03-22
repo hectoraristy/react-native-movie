@@ -24,6 +24,7 @@ class TouchableStart extends PureComponent {
   }
 
   onPress() {
+    this.props.onPress(!this.state.isFavorite);
     this.setState({
       isFavorite: !this.state.isFavorite
     });
