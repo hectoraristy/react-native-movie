@@ -4,6 +4,7 @@
 
 Basic architecture for react native projects.
 
+![alt text](screenshot.png)
 
 # Setup
 
