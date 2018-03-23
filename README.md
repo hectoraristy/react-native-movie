@@ -12,13 +12,17 @@ Inside the movie folder run the following:
 
 `yarn install`
 
-Then start react native cli and run the platform of your choices:
+Start react native cli:
 
-`yarn start && react-native run-ios`
+`yarn start`
+
+In other terminal in the same path, depending in which platform run the following:
+
+For IOS: `yarn run ios`
+
+For Android: `yarn run android`
 
 
 # Contribution
 
 Feel free to create any issue :) 
-
-
