@@ -16,7 +16,7 @@ Start react native cli:
 
 `yarn start`
 
-In other terminal in the same path, depending in which platform run the following:
+In other terminal with same path, depending in which platform run the following:
 
 For IOS: `yarn run ios`
 
